@@ -1,0 +1,62 @@
+<!-- Alert Biasa -->
+return back()->with('pesan', 'isi pesan');
+return redirect('/...')->with('pesan', 'isi pesan');
+
+@if(session()->has('pesan'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+{{ session('pesan') }}
+</div>
+@endif
+--------------------------------------------------------------------------------------------
+<!-- Alert Library JS Toasrs -->
+<!-- Ditaruh di file master/main -->
+<link rel="stylesheet" href="{{ asset('templating/plugins/toastr/toastr.min.css') }}">
+<script src="{{ asset('templating/plugins/toastr/toastr.min.js') }}"></script>
+
+<!-- Ditaruh disetiap halaman yg diberi alert -->
+@if(session('success'))
+  @push('scripts')
+  <script>
+    toastr.success("{{ session('success') }}");
+  </script>
+  @endpush
+@endif
+--------------------------------------------------------------------------------------------
+<!-- Library Javascript Data Table Untuk Search Dan Pagination Tabel -->
+<!-- ditaruh di main -->
+@stack('styles')
+@stack('scripts')
+
+<!-- ditaruh disetiap tabel yg ingin diberi library -->
+@push('styles')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css" />
+@endpush
+
+@push('scripts')
+<script src="{{ asset('templating/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('templating/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<script>
+  $(function() {
+    $("#myTable").DataTable();
+  });
+</script>
+@endpush
+-------------------------------------------------------------------------------------------------------------
+<!-- Library JS Select2 (Dropdown) -->
+<!-- Ditaruh Disetiap Halaman yg Diberi Select2 -->
+@push('styles')
+<link href="{{ asset('templating/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('templating/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+<script src="{{ asset('templating/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+  $(document).ready(function() {
+    $('.select2').select2({
+      placeholder: "Pilih Opsi",
+      theme: 'bootstrap4'
+    });
+  });
+</script>
+@endpush
